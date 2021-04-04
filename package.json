@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "antd": "^4.15.0",
     "apollo-server-express": "^1.4.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
@@ -49,6 +50,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
     ]
   }
 }
