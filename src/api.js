@@ -50,7 +50,7 @@ const resolvers = {
         person: (_, args) => {
             const idx = people.findIndex(p => p.email === args.email);
             if (idx < 0) {
-                throw error('Person not found');
+                throw new Error('Person not found');
             }
             return people[idx];
         }
@@ -59,7 +59,7 @@ const resolvers = {
         editPerson: (_, args) => {
             const idx = people.findIndex(p => p.email === args.email);
             if (idx < 0) {
-                throw error('Person not found');
+                throw new Error('Person not found');
             }
             if(args.payload.title) {
                 people[idx].name.title = args.payload.title;
@@ -93,7 +93,9 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 // GraphiQL, a visual editor for queries
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
+const API_PORT = 3001;
+
 // Start the server
-app.listen(3000, () => {
-    console.log(`Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:3000/graphiql\n GOOD LUCK!`);
+app.listen(API_PORT, () => {
+    console.log(`Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:${API_PORT}/graphiql\n GOOD LUCK!`);
 });
