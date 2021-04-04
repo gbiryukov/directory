@@ -7,24 +7,23 @@ const { makeExecutableSchema } = require('graphql-tools');
 let people = [];
 
 // load seed people
-const https = require('https')
+const https = require('https');
 const options = {
-    hostname: 'randomuser.me',
-    path: '/api/?results=100&inc=name,email,picture',
-    method: 'GET'
-}
+  hostname: 'randomuser.me',
+  path: '/api/?results=100&inc=name,email,picture',
+  method: 'GET',
+};
 
-const req = https.request(options, res => {
-    console.log('Seeding data...');
-    let data = '';
-    res.on('data', chunk => {
-        data += chunk;
-    });
-    res.on('end', () => {
-        people = JSON.parse(data).results;
-        console.log('Data Seeded!');
-    })
-
+const req = https.request(options, (res) => {
+  console.log('Seeding data...');
+  let data = '';
+  res.on('data', (chunk) => {
+    data += chunk;
+  });
+  res.on('end', () => {
+    people = JSON.parse(data).results;
+    console.log('Data Seeded!');
+  });
 });
 req.end();
 
@@ -45,43 +44,43 @@ const typeDefs = `
 
 // The resolvers
 const resolvers = {
-    Query: {
-        people: () => people,
-        person: (_, args) => {
-            const idx = people.findIndex(p => p.email === args.email);
-            if (idx < 0) {
-                throw new Error('Person not found');
-            }
-            return people[idx];
-        }
+  Query: {
+    people: () => people,
+    person: (_, args) => {
+      const idx = people.findIndex((p) => p.email === args.email);
+      if (idx < 0) {
+        throw new Error('Person not found');
+      }
+      return people[idx];
     },
-    Mutation: {
-        editPerson: (_, args) => {
-            const idx = people.findIndex(p => p.email === args.email);
-            if (idx < 0) {
-                throw new Error('Person not found');
-            }
-            if(args.payload.title) {
-                people[idx].name.title = args.payload.title;
-            }
-            if(args.payload.first) {
-                people[idx].name.first = args.payload.first;
-            }
-            if(args.payload.last) {
-                people[idx].name.last = args.payload.last;
-            }
-            if(args.payload.email) {
-                people[idx].email = args.payload.email;
-            }
-            return people[idx];
-        }
-    }
+  },
+  Mutation: {
+    editPerson: (_, args) => {
+      const idx = people.findIndex((p) => p.email === args.email);
+      if (idx < 0) {
+        throw new Error('Person not found');
+      }
+      if (args.payload.title) {
+        people[idx].name.title = args.payload.title;
+      }
+      if (args.payload.first) {
+        people[idx].name.first = args.payload.first;
+      }
+      if (args.payload.last) {
+        people[idx].name.last = args.payload.last;
+      }
+      if (args.payload.email) {
+        people[idx].email = args.payload.email;
+      }
+      return people[idx];
+    },
+  },
 };
 
 // Put together a schema
 const schema = makeExecutableSchema({
-    typeDefs,
-    resolvers,
+  typeDefs,
+  resolvers,
 });
 
 // Initialize the app
@@ -97,5 +96,7 @@ const API_PORT = 3001;
 
 // Start the server
 app.listen(API_PORT, () => {
-    console.log(`Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:${API_PORT}/graphiql\n GOOD LUCK!`);
+  console.log(
+    `Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:${API_PORT}/graphiql\n GOOD LUCK!`
+  );
 });
