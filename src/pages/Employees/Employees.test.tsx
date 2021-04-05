@@ -1,18 +1,19 @@
-import React from 'react';
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MockedResponse } from '@apollo/client/testing';
 import { renderInAppContext } from 'utils/tests';
 import { Employees } from './Employees';
 import { EMPLOYEES_DOCUMENT, PeopleQuery } from './Employees.graphql';
 
 test('renders employees list with loader', async () => {
-  const employees = [{
-    name: {
-      first: 'Foo',
-      last: 'Bar',
+  const employees = [
+    {
+      name: {
+        first: 'Foo',
+        last: 'Bar',
+      },
+      email: 'foo2@bar.com',
     },
-    email: 'foo2@bar.com',
-  }];
+  ];
 
   const EMPLOYEES_MOCK: MockedResponse<PeopleQuery> = {
     request: {

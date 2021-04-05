@@ -1,0 +1,22 @@
+.employee {
+  padding: 12px 0;
+}
+
+.employee__avatar {
+  float: left;
+  margin-right: 15px;
+}
+
+.employee__content {
+  flex-grow: 2;
+}
+
+.employee__loader {
+  text-align: center;
+}
+
+@media only screen and (min-width: 640px) {
+  .employee__actions {
+    text-align: right;
+  }
+}

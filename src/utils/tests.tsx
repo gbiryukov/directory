@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { MemoryRouterProps } from 'react-router';
 import { render, RenderResult } from '@testing-library/react';
 import { DefaultOptions } from '@apollo/client';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
@@ -15,13 +16,14 @@ const MOCKED_CLIENT_OPTIONS: DefaultOptions = {
 
 export function renderInAppContext(
   mocks: ReadonlyArray<MockedResponse>,
-  element: ReactElement
+  element: ReactElement,
+  routerProps?: MemoryRouterProps
 ): RenderResult {
   // create fresh empty cache for each test
   const cache = createCache();
 
   return render(
-    <MemoryRouter>
+    <MemoryRouter {...routerProps}>
       <MockedProvider mocks={mocks} cache={cache} defaultOptions={MOCKED_CLIENT_OPTIONS}>
         {element}
       </MockedProvider>

@@ -5,8 +5,8 @@ import { ROUTE } from 'utils/routes';
 import './Layout.css';
 
 type LayoutProps = {
+  toolbar: ReactNode;
   children?: ReactNode;
-  toolbar?: ReactNode
 };
 
 export const Layout = (props: LayoutProps) => {
@@ -19,10 +19,8 @@ export const Layout = (props: LayoutProps) => {
           Directory
         </Link>
       </AntLayout.Header>
-      <AntLayout.Content>
-        {toolbar && (
-          <div className="layout__toolbar">{toolbar}</div>
-        )}
+      <AntLayout.Content className="layout__container">
+        <div className="layout__toolbar">{toolbar}</div>
         <div className="layout__content">{children}</div>
       </AntLayout.Content>
     </AntLayout>

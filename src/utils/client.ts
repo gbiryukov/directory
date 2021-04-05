@@ -6,7 +6,10 @@ export function createCache(): ApolloCache<CacheShape> {
   return new InMemoryCache({
     typePolicies: {
       Person: {
-        keyFields: ['id', 'email'],
+        keyFields: ['email'],
+      },
+      Picture: {
+        keyFields: ['large'],
       },
     },
   });

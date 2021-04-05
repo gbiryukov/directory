@@ -16,6 +16,8 @@ function getFactoryForRoute<TParams extends { [key: string]: string | number }>(
   return compile(ROUTE[routeName]);
 }
 
+export type IDParam = { id: string };
+
 export const ROUTE_HREF = {
-  employee: getFactoryForRoute<{ id: string }>('employee'),
+  employee: getFactoryForRoute<IDParam>('employee'),
 };

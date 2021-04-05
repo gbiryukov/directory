@@ -12,6 +12,7 @@ export const EMPLOYEES_DOCUMENT = gql`
       email
       picture {
         thumbnail
+        large
       }
     }
   }
@@ -27,6 +28,7 @@ export type Employee = {
   email?: string;
   picture?: {
     thumbnail?: string;
+    large?: string;
   };
 };
 
