@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { List, Avatar, Button, Alert, Spin, Typography } from 'antd';
+import { List, Avatar, Button, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Layout } from 'components/Layout/Layout';
+import { PagePlaceholder } from 'components/PagePlaceholder/PagePlaceholder';
 import { ROUTE_HREF } from 'utils/routes';
 import { getFullName } from 'selectors/getFullName';
 import { EmployeesBreadcrumbs } from './components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
@@ -22,11 +23,13 @@ export const Employees = () => {
     </div>
   );
 
-  if (error) {
+  if (loading || error || !data) {
     return (
-      <Layout toolbar={renderToolBar()}>
-        <Alert type="error" message="Oops something went wrong, please try to refresh the page" />
-      </Layout>
+      <PagePlaceholder
+        toolbar={renderToolBar()}
+        isError={Boolean(error || !data)}
+        isLoading={loading}
+      />
     );
   }
 
@@ -60,15 +63,7 @@ export const Employees = () => {
   return (
     <Layout toolbar={renderToolBar()}>
       <List
-        loading={{
-          spinning: loading,
-          indicator: (
-            <div role="progressbar">
-              <Spin />
-            </div>
-          ),
-        }}
-        dataSource={(data?.people || []).filter(filterEmployees)}
+        dataSource={data.people.filter(filterEmployees)}
         rowKey={getEmailTypeSafe}
         renderItem={(item) => (
           <List.Item>
