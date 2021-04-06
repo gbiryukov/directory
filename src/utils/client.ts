@@ -5,6 +5,7 @@ type CacheShape = NormalizedCacheObject;
 export function createCache(): ApolloCache<CacheShape> {
   return new InMemoryCache({
     typePolicies: {
+      // following types have nothing in `id` field so tell apollo how to identify it
       Person: {
         keyFields: ['email'],
       },

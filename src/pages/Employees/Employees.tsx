@@ -6,13 +6,13 @@ import { PagePlaceholder } from 'components/PagePlaceholder/PagePlaceholder';
 import { useEmployeesQuery, EmployeesFieldsFragment } from 'api/generated';
 import { ROUTE_HREF } from 'utils/routes';
 import { getFullName } from 'selectors/getFullName';
+import { hasSearchMatch } from './selectors/hasSearchMatch';
 import { EmployeesBreadcrumbs } from './components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
 import { EmployeesSearch } from './components/EmployeesSearch/EmployeesSearch';
 import './Employees.css';
 
 export const Employees = () => {
   const { data, error, loading } = useEmployeesQuery();
-
   const [search, setSearch] = useState('');
 
   const renderToolBar = () => (
@@ -55,18 +55,7 @@ export const Employees = () => {
       return true;
     }
 
-    const terms = search.split(/\s/);
-    const searchRegexps = terms.map((term) => new RegExp(term, 'i'));
-
-    let values = [employee.email];
-    if (employee.name) {
-      values = values.concat(Object.values(employee.name));
-    }
-
-    // ensure that employee fields contains all search terms
-    return searchRegexps.every((termRegexp) =>
-      values.some((value) => value && termRegexp.test(value))
-    );
+    return hasSearchMatch(search, employee);
   };
 
   return (

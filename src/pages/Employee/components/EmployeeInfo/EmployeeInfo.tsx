@@ -1,6 +1,5 @@
 import { Typography } from 'antd';
 import { getFullName } from 'selectors/getFullName';
-import { EmployeeQuery } from 'api/generated';
 import './EmployeeInfo.css';
 
 type EmployeeInfoProps = {
