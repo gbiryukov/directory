@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { MockedResponse } from '@apollo/client/testing';
 import { renderInAppContext } from 'utils/tests';
 import { Employees } from './Employees';
@@ -48,4 +48,65 @@ test('renders error', async () => {
   const errorEl = await screen.findByText(/oops/i);
 
   expect(errorEl).toBeInTheDocument();
+});
+
+test('filter employees', async () => {
+  const employees = [
+    {
+      name: {
+        first: 'Foo',
+        last: 'Bar',
+      },
+      email: 'foo2@bar.com',
+    },
+    {
+      name: {
+        first: 'Bob',
+        last: 'Bar',
+      },
+      email: 'bob@example.com',
+    },
+    {
+      name: {
+        first: '111',
+        last: '222',
+      },
+      email: '333@444.555',
+    },
+  ];
+
+  const EMPLOYEES_MOCK: MockedResponse<PeopleQuery> = {
+    request: {
+      query: EMPLOYEES_DOCUMENT,
+    },
+    result: {
+      data: {
+        people: employees,
+      },
+    },
+  };
+
+  renderInAppContext([EMPLOYEES_MOCK], <Employees />);
+
+  const employeeItems = await screen.findAllByText('View');
+  expect(employeeItems.length).toBe(employees.length);
+
+  const searchEl = screen.getByPlaceholderText('Search...');
+  fireEvent.change(searchEl, {
+    target: {
+      value: 'foo',
+    },
+  });
+
+  const filteredEmployees1 = await screen.findAllByText('View');
+  expect(filteredEmployees1.length).toBe(1);
+
+  fireEvent.input(searchEl, {
+    target: {
+      value: 'Bar',
+    },
+  });
+
+  const filteredEmployees2 = await screen.findAllByText('View');
+  expect(filteredEmployees2.length).toBe(2);
 });
