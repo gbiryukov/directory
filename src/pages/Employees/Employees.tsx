@@ -1,11 +1,12 @@
-import { SyntheticEvent, useState } from 'react';
-import { List, Avatar, Button, Alert, Spin, Input } from 'antd';
+import { useState } from 'react';
+import { List, Avatar, Button, Alert, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Layout } from 'components/Layout/Layout';
 import { ROUTE_HREF } from 'utils/routes';
-import { EmployeesBreadcrumbs } from './components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
 import { getFullName } from 'selectors/getFullName';
+import { EmployeesBreadcrumbs } from './components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
+import { EmployeesSearch } from './components/EmployeesSearch/EmployeesSearch';
 import { EMPLOYEES_DOCUMENT, PeopleQuery, Employee } from './Employees.graphql';
 import './Employees.css';
 
@@ -14,19 +15,10 @@ export const Employees = () => {
 
   const [search, setSearch] = useState('');
 
-  const handleSearchChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    setSearch(event.currentTarget.value || '');
-  };
-
   const renderToolBar = () => (
     <div className="employees__toolbar">
       <EmployeesBreadcrumbs />
-      <Input
-        className="employees__search"
-        value={search}
-        onChange={handleSearchChange}
-        placeholder="Search..."
-      />
+      <EmployeesSearch className="employees__search" onChange={setSearch} />
     </div>
   );
 

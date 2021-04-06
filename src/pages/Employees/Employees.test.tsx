@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedResponse } from '@apollo/client/testing';
 import { renderInAppContext } from 'utils/tests';
 import { Employees } from './Employees';
@@ -98,8 +98,7 @@ test('filter employees', async () => {
     },
   });
 
-  const filteredEmployees1 = await screen.findAllByText('View');
-  expect(filteredEmployees1.length).toBe(1);
+  await waitFor(() => expect(screen.getAllByText('View').length).toBe(1));
 
   fireEvent.input(searchEl, {
     target: {
@@ -107,6 +106,5 @@ test('filter employees', async () => {
     },
   });
 
-  const filteredEmployees2 = await screen.findAllByText('View');
-  expect(filteredEmployees2.length).toBe(2);
+  await waitFor(() => expect(screen.getAllByText('View').length).toBe(2));
 });
