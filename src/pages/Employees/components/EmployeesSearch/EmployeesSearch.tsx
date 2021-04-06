@@ -4,7 +4,7 @@ import { useDebounce } from 'use-debounce';
 
 type EmployeesSearchProps = {
   onChange: (value: string) => void;
-  className?: string
+  className?: string;
 };
 
 export const EmployeesSearch = (props: EmployeesSearchProps) => {
@@ -18,7 +18,7 @@ export const EmployeesSearch = (props: EmployeesSearchProps) => {
 
     // cancel state change on component unmount
     return cancel;
-  }, [debouncedValue, cancel, onChange])
+  }, [debouncedValue, cancel, onChange]);
 
   const handleSearchChange = (event: SyntheticEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value || '';

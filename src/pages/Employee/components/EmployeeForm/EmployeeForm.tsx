@@ -13,6 +13,7 @@ type EmployeeFormValue = {
 
 type EmployeeInfoProps = {
   onSubmit: (value: EmployeeFormValue) => Promise<void | Record<string, string>>;
+  onCancel: () => void;
   employee: {
     name?: {
       title?: string;
@@ -29,6 +30,7 @@ export const EmployeeForm = (props: EmployeeInfoProps) => {
   const {
     employee: { name, email },
     onSubmit,
+    onCancel,
   } = props;
 
   const isRequired = (value?: string) => {
@@ -71,6 +73,9 @@ export const EmployeeForm = (props: EmployeeInfoProps) => {
           <div className="employee-form__actions">
             <Button type="primary" htmlType="submit" loading={submitting}>
               Save
+            </Button>
+            <Button disabled={submitting} className="employee-form__cancel" onClick={onCancel}>
+              Cancel
             </Button>
           </div>
         </form>

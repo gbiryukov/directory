@@ -1,5 +1,6 @@
 import { Typography } from 'antd';
 import { getFullName } from 'selectors/getFullName';
+import './EmployeeInfo.css';
 
 type EmployeeInfoProps = {
   employee: {
@@ -18,7 +19,7 @@ export const EmployeeInfo = (props: EmployeeInfoProps) => {
   return (
     <>
       <Typography.Title level={2}>{getFullName(name)}</Typography.Title>
-      <Typography.Paragraph>{email}</Typography.Paragraph>
+      <Typography.Paragraph className="employee-info__last-item">{email}</Typography.Paragraph>
     </>
   );
 };

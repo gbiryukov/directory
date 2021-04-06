@@ -1,0 +1,4 @@
+.employee-info__last-item {
+  /* unfortunately ant uses nested tags specifity for this value */
+  margin-bottom: 0 !important;
+}

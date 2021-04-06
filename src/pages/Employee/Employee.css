@@ -1,21 +1,38 @@
 .employee {
   padding: 12px 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .employee__avatar {
-  float: left;
-  margin-right: 15px;
+  display: block;
+  margin-bottom: 30px;
 }
 
 .employee__content {
-  flex-grow: 2;
+  margin-bottom: 30px;
 }
 
 .employee__loader {
   text-align: center;
+  padding: 12px 0;
 }
 
 @media only screen and (min-width: 640px) {
+  .employee {
+    flex-direction: row;
+  }
+
+  .employee__avatar {
+    margin-right: 30px;
+    margin-bottom: 0;
+  }
+
+  .employee__content {
+    flex-grow: 2;
+    margin-bottom: 0;
+  }
+
   .employee__actions {
     text-align: right;
   }

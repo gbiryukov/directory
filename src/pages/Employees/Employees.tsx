@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { List, Avatar, Button, Alert, Spin } from 'antd';
+import { List, Avatar, Button, Alert, Spin, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Layout } from 'components/Layout/Layout';
@@ -75,9 +75,16 @@ export const Employees = () => {
             <List.Item.Meta
               avatar={<Avatar src={item.picture?.thumbnail} />}
               title={getFullName(item.name)}
-              description={item.email}
+              description={
+                <Typography.Paragraph type="secondary" ellipsis={true}>
+                  {item.email}
+                </Typography.Paragraph>
+              }
             />
-            <Link to={ROUTE_HREF.employee({ id: encodeURIComponent(getEmailTypeSafe(item)) })}>
+            <Link
+              className="employees__view"
+              to={ROUTE_HREF.employee({ id: encodeURIComponent(getEmailTypeSafe(item)) })}
+            >
               <Button type="primary">View</Button>
             </Link>
           </List.Item>
