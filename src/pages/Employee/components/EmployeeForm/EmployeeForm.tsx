@@ -1,7 +1,7 @@
 import { Button, Typography } from 'antd';
-import { Form, Field } from 'react-final-form';
+import { Form } from 'react-final-form';
 import createFocusDecorator from 'final-form-focus';
-import { Input } from 'components/Input/Input';
+import { InputField } from 'components/InputField/InputField';
 import './EmployeeForm.css';
 
 type EmployeeFormValue = {
@@ -33,42 +33,16 @@ export const EmployeeForm = (props: EmployeeInfoProps) => {
     onCancel,
   } = props;
 
-  const isRequired = (value?: string) => {
-    if (!value) {
-      return 'This field is required';
-    }
-  };
-
   return (
     <Form<EmployeeFormValue>
       onSubmit={onSubmit}
       decorators={[focusDecorator]}
       render={({ handleSubmit, submitting, submitError }) => (
         <form onSubmit={handleSubmit}>
-          <Field
-            name="title"
-            initialValue={name?.title}
-            render={(renderProps) => <Input {...renderProps} label="Title" />}
-            validate={isRequired}
-          />
-          <Field
-            name="first"
-            initialValue={name?.first}
-            render={(renderProps) => <Input {...renderProps} label="First Name" />}
-            validate={isRequired}
-          />
-          <Field
-            name="last"
-            initialValue={name?.last}
-            render={(renderProps) => <Input {...renderProps} label="Last Name" />}
-            validate={isRequired}
-          />
-          <Field
-            name="email"
-            initialValue={email}
-            render={(renderProps) => <Input {...renderProps} label="Email" />}
-            validate={isRequired}
-          />
+          <InputField name="title" label="Title" initialValue={name?.title} />
+          <InputField name="first" label="First Name" initialValue={name?.first} />
+          <InputField name="last" label="Last Name" initialValue={name?.last} />
+          <InputField name="email" label="Email" initialValue={email} />
           {submitError && <Typography.Text type="danger">{submitError}</Typography.Text>}
           <div className="employee-form__actions">
             <Button type="primary" htmlType="submit" loading={submitting}>
