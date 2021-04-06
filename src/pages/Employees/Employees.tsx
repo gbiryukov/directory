@@ -43,13 +43,18 @@ export const Employees = () => {
       return true;
     }
 
-    const searchRegexp = new RegExp(search, 'i');
-    let terms = [employee.email];
+    const terms = search.split(/\s/);
+    const searchRegexps = terms.map((term) => new RegExp(term, 'i'));
+
+    let values = [employee.email];
     if (employee.name) {
-      terms = terms.concat(Object.values(employee.name));
+      values = values.concat(Object.values(employee.name));
     }
 
-    return terms.some((term) => term && searchRegexp.test(term));
+    // ensure that employee fields contains all search terms
+    return searchRegexps.every((termRegexp) =>
+      values.some((value) => value && termRegexp.test(value))
+    );
   };
 
   return (
