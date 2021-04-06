@@ -1,0 +1,28 @@
+.employees__toolbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.employees__search {
+  margin-bottom: 20px;
+  order: -1;
+}
+
+@media only screen and (min-width: 640px) {
+  .employees__toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .employees__search {
+    order: 0;
+    width: 250px;
+    margin: -5px 0;
+  }
+}
+
+.employees__view {
+  display: block;
+  margin-left: 15px;
+}
