@@ -1,37 +1,23 @@
 import { gql } from '@apollo/client';
 
 export const EMPLOYEES_DOCUMENT = gql`
-  query People {
+  query Employees {
     people {
-      id
-      name {
-        title
-        first
-        last
-      }
-      email
-      picture {
-        thumbnail
-        large
-      }
+      ...EmployeesFields
+    }
+  }
+
+  fragment EmployeesFields on Person {
+    id
+    name {
+      title
+      first
+      last
+    }
+    email
+    picture {
+      thumbnail
+      large
     }
   }
 `;
-
-export type Employee = {
-  id?: number;
-  name?: {
-    title?: string;
-    first?: string;
-    last?: string;
-  };
-  email?: string;
-  picture?: {
-    thumbnail?: string;
-    large?: string;
-  };
-};
-
-export type PeopleQuery = {
-  people: Employee[];
-};

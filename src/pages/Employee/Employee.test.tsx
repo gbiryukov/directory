@@ -2,8 +2,8 @@ import { screen } from '@testing-library/react';
 import { MockedResponse } from '@apollo/client/testing';
 import { renderInAppContext } from 'utils/tests';
 import { ROUTE, ROUTE_HREF } from 'utils/routes';
+import { EmployeeDocument, EmployeeQuery } from 'api/generated';
 import { Employee } from './Employee';
-import { EMPLOYEE_DOCUMENT, EmployeeQuery } from './Employee.graphql';
 import { Route } from 'react-router-dom';
 
 const employee = {
@@ -20,7 +20,7 @@ const employee = {
 test('renders employee', async () => {
   const EMPLOYEE_MOCK: MockedResponse<EmployeeQuery> = {
     request: {
-      query: EMPLOYEE_DOCUMENT,
+      query: EmployeeDocument,
       variables: {
         email: employee.email,
       },

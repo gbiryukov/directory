@@ -6,7 +6,6 @@ type InputFieldProps<Value> = Omit<FieldProps<Value, FieldRenderProps<Value>>, '
   label: string;
 };
 
-
 export const InputField = (props: InputFieldProps<string>) => {
   const { label, validate = isRequired, name, ...fieldProps } = props;
 

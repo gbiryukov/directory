@@ -5,10 +5,11 @@ import { useDebounce } from 'use-debounce';
 type EmployeesSearchProps = {
   onChange: (value: string) => void;
   className?: string;
+  isDisabled?: boolean;
 };
 
 export const EmployeesSearch = (props: EmployeesSearchProps) => {
-  const { onChange, className } = props;
+  const { onChange, className, isDisabled } = props;
 
   const [search, setSearch] = useState('');
   const [debouncedValue, { cancel, flush }] = useDebounce(search, 200);
@@ -35,6 +36,7 @@ export const EmployeesSearch = (props: EmployeesSearchProps) => {
       className={className}
       value={search}
       onChange={handleSearchChange}
+      disabled={isDisabled}
       placeholder="Search..."
     />
   );

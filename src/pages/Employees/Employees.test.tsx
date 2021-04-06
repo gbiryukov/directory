@@ -1,8 +1,8 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedResponse } from '@apollo/client/testing';
+import { EmployeesDocument, EmployeesQuery } from 'api/generated';
 import { renderInAppContext } from 'utils/tests';
 import { Employees } from './Employees';
-import { EMPLOYEES_DOCUMENT, PeopleQuery } from './Employees.graphql';
 
 test('renders employees list with loader', async () => {
   const employees = [
@@ -15,9 +15,9 @@ test('renders employees list with loader', async () => {
     },
   ];
 
-  const EMPLOYEES_MOCK: MockedResponse<PeopleQuery> = {
+  const EMPLOYEES_MOCK: MockedResponse<EmployeesQuery> = {
     request: {
-      query: EMPLOYEES_DOCUMENT,
+      query: EmployeesDocument,
     },
     result: {
       data: {
@@ -36,9 +36,9 @@ test('renders employees list with loader', async () => {
 });
 
 test('renders error', async () => {
-  const EMPLOYEES_MOCK: MockedResponse<PeopleQuery> = {
+  const EMPLOYEES_MOCK: MockedResponse<EmployeesQuery> = {
     request: {
-      query: EMPLOYEES_DOCUMENT,
+      query: EmployeesDocument,
     },
     error: new Error('Network error'),
   };
@@ -75,9 +75,9 @@ test('filter employees', async () => {
     },
   ];
 
-  const EMPLOYEES_MOCK: MockedResponse<PeopleQuery> = {
+  const EMPLOYEES_MOCK: MockedResponse<EmployeesQuery> = {
     request: {
-      query: EMPLOYEES_DOCUMENT,
+      query: EmployeesDocument,
     },
     result: {
       data: {

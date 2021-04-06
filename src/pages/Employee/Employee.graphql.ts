@@ -28,34 +28,3 @@ export const EDIT_EMPLOYEE_DOCUMENT = gql`
     }
   }
 `;
-
-export type Employee = {
-  id?: number;
-  name?: {
-    title?: string;
-    first?: string;
-    last?: string;
-  };
-  email?: string;
-  picture?: {
-    large?: string;
-  };
-};
-
-export type EmployeeQuery = {
-  person: Employee;
-};
-
-export type EmployeeQueryVariables = {
-  email: string;
-};
-
-export type EditEmployeeMutationVariables = {
-  email: string;
-  payload?: {
-    title?: string;
-    first?: string;
-    last?: string;
-    email?: string;
-  };
-};

@@ -16,11 +16,11 @@ type EmployeeInfoProps = {
   onCancel: () => void;
   employee: {
     name?: {
-      title?: string;
-      first?: string;
-      last?: string;
-    };
-    email?: string;
+      title?: string | null;
+      first?: string | null;
+      last?: string | null;
+    } | null;
+    email?: string | null;
   };
 };
 

@@ -1,25 +1,28 @@
 import { useState } from 'react';
 import { List, Avatar, Button, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { Layout } from 'components/Layout/Layout';
 import { PagePlaceholder } from 'components/PagePlaceholder/PagePlaceholder';
+import { useEmployeesQuery, EmployeesFieldsFragment } from 'api/generated';
 import { ROUTE_HREF } from 'utils/routes';
 import { getFullName } from 'selectors/getFullName';
 import { EmployeesBreadcrumbs } from './components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
 import { EmployeesSearch } from './components/EmployeesSearch/EmployeesSearch';
-import { EMPLOYEES_DOCUMENT, PeopleQuery, Employee } from './Employees.graphql';
 import './Employees.css';
 
 export const Employees = () => {
-  const { data, error, loading } = useQuery<PeopleQuery>(EMPLOYEES_DOCUMENT);
+  const { data, error, loading } = useEmployeesQuery();
 
   const [search, setSearch] = useState('');
 
   const renderToolBar = () => (
     <div className="employees__toolbar">
       <EmployeesBreadcrumbs />
-      <EmployeesSearch className="employees__search" onChange={setSearch} />
+      <EmployeesSearch
+        className="employees__search"
+        onChange={setSearch}
+        isDisabled={Boolean(loading || error)}
+      />
     </div>
   );
 
@@ -33,7 +36,7 @@ export const Employees = () => {
     );
   }
 
-  const getEmailTypeSafe = ({ email }: Employee): string => {
+  const getEmailTypeSafe = ({ email }: EmployeesFieldsFragment): string => {
     if (!email) {
       throw new Error('Can not identify employee');
     }
@@ -41,7 +44,13 @@ export const Employees = () => {
     return email;
   };
 
-  const filterEmployees = (employee: Employee): boolean => {
+  const filterEmployees = (
+    employee?: EmployeesFieldsFragment | null
+  ): employee is EmployeesFieldsFragment => {
+    if (!employee) {
+      return false;
+    }
+
     if (!search) {
       return true;
     }
@@ -63,7 +72,7 @@ export const Employees = () => {
   return (
     <Layout toolbar={renderToolBar()}>
       <List
-        dataSource={data.people.filter(filterEmployees)}
+        dataSource={(data.people || []).filter<EmployeesFieldsFragment>(filterEmployees)}
         rowKey={getEmailTypeSafe}
         renderItem={(item) => (
           <List.Item>

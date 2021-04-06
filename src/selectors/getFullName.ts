@@ -1,12 +1,8 @@
-type Name = {
-  title?: string;
-  first?: string;
-  last?: string;
-};
+import { Name } from 'api/generated';
 
 const EMPTY_NAME = '–';
 
-export function getFullName(name?: Name): string {
+export function getFullName(name?: Name | null): string {
   if (!name) {
     return EMPTY_NAME;
   }

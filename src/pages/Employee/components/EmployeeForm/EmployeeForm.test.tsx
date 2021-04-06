@@ -17,7 +17,7 @@ const employee = {
 test('pre-populates form with initial values', async () => {
   renderInAppContext(
     [],
-    <EmployeeForm employee={employee} onCancel={() => {}} onSubmit={() => {}} />
+    <EmployeeForm employee={employee} onCancel={() => {}} onSubmit={() => Promise.resolve()} />
   );
 
   screen.getByDisplayValue(employee.name.title);

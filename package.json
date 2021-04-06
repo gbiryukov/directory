@@ -6,11 +6,12 @@
   "scripts": {
     "start:ui": "react-scripts start",
     "start:api": "node src/api.js ",
-    "start": "yarn start:api & yarn start:ui",
+    "start": "npm run start:api & npm run start:ui",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "format": "yarn prettier --write ."
+    "format": "prettier --write .",
+    "gen-typings": "graphql-codegen && npm run format"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +35,10 @@
     "use-debounce": "^6.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.3",
+    "@graphql-codegen/typescript": "^1.21.1",
+    "@graphql-codegen/typescript-operations": "^1.17.15",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.3",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",

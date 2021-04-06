@@ -1,15 +1,16 @@
 import { Typography } from 'antd';
 import { getFullName } from 'selectors/getFullName';
+import { EmployeeQuery } from 'api/generated';
 import './EmployeeInfo.css';
 
 type EmployeeInfoProps = {
   employee: {
     name?: {
-      title?: string;
-      first?: string;
-      last?: string;
-    };
-    email?: string;
+      title?: string | null;
+      first?: string | null;
+      last?: string | null;
+    } | null;
+    email?: string | null;
   };
 };
 

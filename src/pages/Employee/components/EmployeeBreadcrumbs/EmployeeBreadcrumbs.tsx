@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { EmployeesBreadcrumbs } from 'pages/Employees/components/EmployeesBreadcrumbs/EmployeesBreadcrumbs';
 import { ROUTE_HREF } from 'utils/routes';
 import { getFullName } from 'selectors/getFullName';
-import { useEmployeeQuery } from '../../hooks/useEmployeeQuery';
+import { useEmployeeQuery } from 'api/generated';
 
 type EmployeesBreadcrumbsProps = {
   email: string;
@@ -24,7 +24,7 @@ export const EmployeeBreadcrumbs = (props: EmployeesBreadcrumbsProps) => {
     <EmployeesBreadcrumbs>
       <Breadcrumb.Item>
         <Link to={ROUTE_HREF.employee({ id: encodeURIComponent(email) })}>
-          {getFullName(data?.person.name)}
+          {getFullName(data?.person?.name)}
         </Link>
       </Breadcrumb.Item>
       {children}

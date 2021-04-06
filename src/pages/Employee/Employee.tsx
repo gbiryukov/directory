@@ -2,19 +2,17 @@ import { useState } from 'react';
 import { Avatar, Button } from 'antd';
 import { useParams } from 'react-router-dom';
 import { FORM_ERROR } from 'final-form';
-import { useMutation } from '@apollo/client';
 import { Layout } from 'components/Layout/Layout';
 import { PagePlaceholder } from 'components/PagePlaceholder/PagePlaceholder';
 import { IDParam } from 'utils/routes';
-import { useEmployeeQuery } from './hooks/useEmployeeQuery';
+import {
+  useEmployeeQuery,
+  useEditEmployeeMutation,
+  EditEmployeeMutationVariables,
+} from 'api/generated';
 import { EmployeeBreadcrumbs } from './components/EmployeeBreadcrumbs/EmployeeBreadcrumbs';
 import { EmployeeInfo } from './components/EmployeeInfo/EmployeeInfo';
 import { EmployeeForm } from './components/EmployeeForm/EmployeeForm';
-import {
-  EDIT_EMPLOYEE_DOCUMENT,
-  EmployeeQuery,
-  EditEmployeeMutationVariables,
-} from './Employee.graphql';
 import './Employee.css';
 
 export const Employee = () => {
@@ -26,15 +24,17 @@ export const Employee = () => {
     },
   });
   const [isEditMode, setEditMode] = useState(false);
-  const [editEmployee] = useMutation<EmployeeQuery, EditEmployeeMutationVariables>(
-    EDIT_EMPLOYEE_DOCUMENT
-  );
+  const [editEmployee] = useEditEmployeeMutation();
 
   const toolbar = <EmployeeBreadcrumbs email={emailParam} />;
 
-  if (loading || error || !data) {
+  if (loading || error || !data?.person) {
     return (
-      <PagePlaceholder toolbar={toolbar} isLoading={loading} isError={Boolean(error || !data)} />
+      <PagePlaceholder
+        toolbar={toolbar}
+        isLoading={loading}
+        isError={Boolean(error || !data?.person)}
+      />
     );
   }
 
